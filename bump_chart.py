@@ -97,8 +97,7 @@ def plot_bump_chart(
         legend_proxies.keys(),
         loc="upper left",
         bbox_to_anchor=(1.01, 1.0),
-        borderaxespad=0.0,
-        fontsize='small'
+        borderaxespad=0.0
     )
 
     plt.title(title)
