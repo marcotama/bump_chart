@@ -66,7 +66,7 @@ def plot_bump_chart(
         tck = interpolate.splrep(X, Y[index], s=0)
         Y_int = interpolate.splev(X_int, tck, der=0)
 
-        color = 'blue' if colors is None else colors[index]
+        color = 'blue' if colors is None or index not in colors else colors[index]
 
         plt.fill_between(
             X_int,
