@@ -35,7 +35,7 @@ def plot_bump_chart(
     """
 
     RECTANGLES_WIDTH = .1
-    RECTANGLES_HEIGHT = .1
+    RECTANGLES_HEIGHT = .05
     ALPHA_SPLINE = .4
     ALPHA_RECTANGLE = .4
     ALPHA_LEGEND = ALPHA_SPLINE * (1 - ALPHA_RECTANGLE) + ALPHA_RECTANGLE
@@ -93,22 +93,27 @@ def plot_bump_chart(
         legend_proxies[label] = plt.Rectangle((0, 0), 1, 1, fc=color, alpha=ALPHA_LEGEND)
     plt.sca(ax)
     # ax.set_position([box.x0, box.y0, box.width, box.height])
+    fontP = FontProperties()
+    fontP.set_size('medium')
     lgd = plt.legend(
         legend_proxies.values(),
         legend_proxies.keys(),
         loc="upper left",
         bbox_to_anchor=(1.01, 1.0),
-        borderaxespad=0.0
+        borderaxespad=0.0,
+        prop=fontP
     )
 
     plt.title(title)
+    plt.xlabel("Players")
+    plt.ylabel("# of uses")
     if log_y:
         ax.set_yscale('log')
     plt.xticks([f+RECTANGLES_WIDTH/2 for f in range(len(df.columns))], x_ticks)
-    plt.yticks([])
+    #plt.yticks([])
     ax.set_xlim(-0.1, X.max() + 0.1)
     ax.set_ylim(
-        min(y.min() for y in Y.values()),
+        min(y.min() for y in Y.values()) * (1 - RECTANGLES_HEIGHT),
         max(y.max() for y in Y.values()) * (1 + RECTANGLES_HEIGHT)
     )
     plt.tight_layout()

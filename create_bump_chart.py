@@ -1,27 +1,370 @@
 from bump_chart import plot_bump_chart
 import pandas as pd
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
-data = OrderedDict((
-    ('Aggressive',   [60, 50, 40, 30, 20, 10, 00, 00, 00, 00, 00, 00]),
-    ('Conservative', [60, 40, 20, 10, 00, 50, 30, 00, 00, 00, 00, 00]),
-    ('Marco',        [60, 50, 00, 00, 00, 30, 00, 40, 20, 10, 00, 00]),
-    ('William',      [60, 50, 00, 00, 00, 40, 00, 20, 00, 00, 30, 10])
-))
-goals = [
-    '3, 1, 3, None',
-    '3, 2, 3, None',
-    'None, 3, 3, None',
-    'None, 2, 3, None',
-    'None, 1, 3, None',
-    '3, 1, None, 3',
-    'None, 1, None, 4',
-    '3, 1, 2, None',
-    '3, 3, 3, None',
-    '3, 2, 2, None',
-    '3, 1, 3, 3',
-    '2, 1, 3, None'
-]
+d = OrderedDict()
+
+d['Aggressive'] = OrderedDict()
+d['P1'] = OrderedDict()
+d['P2'] = OrderedDict()
+d['Conservative'] = OrderedDict()
+d['Aggressive']['far,close,far,none'] = 41365
+d['Aggressive']['far,mid,far,none'] = 13779
+d['Aggressive']['none,far,far,none'] = 12594
+d['Aggressive']['none,mid,far,none'] = 11750
+d['Aggressive']['none,close,far,none'] = 10762
+d['Aggressive']['far,close,none,far'] = 6719
+d['Aggressive']['far,far,far,none'] = 6375
+d['Aggressive']['far,close,far,far'] = 5562
+d['Aggressive']['mid,close,far,none'] = 5467
+d['Aggressive']['none,close,none,far'] = 4132
+d['Aggressive']['none,close,far,far'] = 2551
+d['Aggressive']['far,close,none,mid'] = 2223
+d['Aggressive']['far,mid,far,far'] = 2125
+d['Aggressive']['none,mid,far,far'] = 1916
+d['Aggressive']['far,close,mid,none'] = 1904
+d['Aggressive']['close,mid,far,none'] = 1653
+d['Aggressive']['far,close,far,mid'] = 1432
+d['Aggressive']['none,mid,none,far'] = 1331
+d['Aggressive']['far,mid,none,far'] = 1268
+d['Aggressive']['none,far,mid,none'] = 1146
+d['Aggressive']['none,far,far,far'] = 1133
+d['Aggressive']['none,close,none,mid'] = 1111
+d['Aggressive']['far,mid,mid,none'] = 1068
+d['Aggressive']['none,mid,mid,none'] = 1005
+d['Aggressive']['far,mid,none,mid'] = 974
+d['Aggressive']['none,mid,none,mid'] = 937
+d['Aggressive']['none,close,mid,none'] = 705
+d['Aggressive']['far,far,far,far'] = 697
+d['Aggressive']['none,far,none,far'] = 623
+d['Aggressive']['far,far,mid,none'] = 561
+d['Aggressive']['none,mid,far,mid'] = 554
+d['Aggressive']['far,close,mid,far'] = 531
+d['Aggressive']['none,close,far,mid'] = 514
+d['Aggressive']['none,far,none,mid'] = 513
+d['Aggressive']['none,far,far,mid'] = 470
+d['Aggressive']['far,mid,far,mid'] = 468
+d['Aggressive']['far,close,none,close'] = 398
+d['Aggressive']['far,close,mid,mid'] = 342
+d['Aggressive']['far,far,none,far'] = 300
+d['Aggressive']['far,close,far,close'] = 242
+d['Aggressive']['none,mid,mid,far'] = 236
+d['Aggressive']['none,close,mid,far'] = 224
+d['Aggressive']['far,mid,none,close'] = 204
+d['Aggressive']['mid,close,mid,none'] = 182
+d['Aggressive']['none,mid,none,close'] = 181
+d['Aggressive']['none,close,none,close'] = 174
+d['Aggressive']['far,far,none,mid'] = 155
+d['Aggressive']['none,far,mid,far'] = 137
+d['Aggressive']['far,mid,mid,far'] = 134
+d['Aggressive']['none,far,close,none'] = 131
+d['Aggressive']['far,far,far,mid'] = 123
+d['Aggressive']['none,far,none,close'] = 122
+d['Aggressive']['none,close,mid,mid'] = 119
+d['Aggressive']['none,mid,mid,mid'] = 117
+d['Aggressive']['mid,close,far,mid'] = 107
+d['Aggressive']['far,mid,close,none'] = 104
+d['Aggressive']['none,mid,far,close'] = 102
+d['Aggressive']['none,far,far,close'] = 99
+d['Aggressive']['far,mid,far,close'] = 96
+d['Aggressive']['none,mid,close,none'] = 89
+d['Aggressive']['mid,mid,far,none'] = 81
+d['Aggressive']['far,close,close,mid'] = 81
+d['Aggressive']['none,close,far,close'] = 78
+d['Aggressive']['far,close,close,none'] = 75
+d['Aggressive']['far,far,close,none'] = 75
+d['Aggressive']['far,close,close,far'] = 66
+d['Aggressive']['far,mid,mid,mid'] = 59
+d['Aggressive']['far,close,mid,close'] = 56
+d['Aggressive']['mid,close,far,far'] = 55
+d['Aggressive']['none,mid,close,far'] = 52
+d['Aggressive']['none,mid,close,mid'] = 48
+d['Aggressive']['none,far,mid,mid'] = 45
+d['Aggressive']['far,far,none,close'] = 45
+d['Aggressive']['far,far,far,close'] = 38
+d['Aggressive']['far,mid,close,far'] = 36
+d['Aggressive']['close,mid,mid,none'] = 33
+d['Aggressive']['none,close,close,none'] = 30
+d['Aggressive']['none,close,close,far'] = 28
+d['Aggressive']['close,mid,far,mid'] = 24
+d['Aggressive']['none,close,close,mid'] = 24
+d['Aggressive']['none,mid,mid,close'] = 22
+d['Aggressive']['far,far,mid,far'] = 20
+d['Aggressive']['far,mid,close,mid'] = 19
+d['Aggressive']['mid,close,none,mid'] = 18
+d['Aggressive']['none,far,close,far'] = 18
+d['Aggressive']['mid,mid,mid,none'] = 16
+d['Aggressive']['none,close,mid,close'] = 16
+d['Aggressive']['mid,close,far,close'] = 13
+d['Aggressive']['none,far,mid,close'] = 11
+d['Aggressive']['close,mid,far,far'] = 9
+d['Aggressive']['far,mid,mid,close'] = 9
+d['Aggressive']['far,far,mid,mid'] = 9
+d['Aggressive']['none,far,close,mid'] = 8
+d['Aggressive']['far,far,close,far'] = 8
+d['Aggressive']['mid,close,mid,far'] = 7
+d['Aggressive']['close,mid,far,close'] = 6
+d['Aggressive']['mid,close,close,none'] = 6
+d['Aggressive']['none,far,close,close'] = 4
+d['Aggressive']['far,mid,close,close'] = 4
+d['Aggressive']['mid,close,mid,mid'] = 4
+d['Aggressive']['far,close,close,close'] = 4
+d['Aggressive']['mid,close,none,close'] = 3
+d['Aggressive']['far,far,close,mid'] = 3
+d['Aggressive']['mid,mid,close,none'] = 2
+d['Aggressive']['close,mid,none,mid'] = 2
+d['Aggressive']['close,mid,mid,far'] = 2
+d['Aggressive']['far,far,close,close'] = 2
+d['Aggressive']['none,mid,close,close'] = 2
+d['Aggressive']['mid,mid,far,far'] = 2
+d['Aggressive']['close,mid,none,close'] = 2
+d['Aggressive']['none,close,close,close'] = 1
+d['Aggressive']['mid,close,mid,close'] = 1
+d['Aggressive']['close,mid,mid,mid'] = 1
+d['Aggressive']['mid,close,none,far'] = 1
+
+d['Conservative']['far,close,far,none'] = 38630
+d['Conservative']['far,close,none,far'] = 17425
+d['Conservative']['far,mid,far,none'] = 12803
+d['Conservative']['none,close,none,far'] = 11388
+d['Conservative']['none,far,far,none'] = 9282
+d['Conservative']['none,mid,far,none'] = 7078
+d['Conservative']['far,far,far,none'] = 6698
+d['Conservative']['none,close,far,none'] = 5942
+d['Conservative']['mid,close,far,none'] = 5499
+d['Conservative']['far,close,far,far'] = 5449
+d['Conservative']['far,close,none,mid'] = 3730
+d['Conservative']['none,mid,none,far'] = 3714
+d['Conservative']['none,close,far,far'] = 3081
+d['Conservative']['far,mid,none,far'] = 2749
+d['Conservative']['none,mid,far,far'] = 2222
+d['Conservative']['none,close,none,mid'] = 2192
+d['Conservative']['far,mid,far,far'] = 1813
+d['Conservative']['close,mid,far,none'] = 1678
+d['Conservative']['none,far,none,far'] = 1653
+d['Conservative']['far,close,mid,none'] = 1419
+d['Conservative']['none,far,far,far'] = 1216
+d['Conservative']['none,mid,none,mid'] = 1087
+d['Conservative']['far,mid,mid,none'] = 990
+d['Conservative']['far,far,none,far'] = 858
+d['Conservative']['none,far,mid,none'] = 754
+d['Conservative']['far,mid,none,mid'] = 741
+d['Conservative']['far,far,far,far'] = 601
+d['Conservative']['far,close,far,mid'] = 598
+d['Conservative']['none,mid,mid,none'] = 592
+d['Conservative']['far,far,mid,none'] = 490
+d['Conservative']['none,far,none,mid'] = 390
+d['Conservative']['far,close,none,close'] = 386
+d['Conservative']['none,close,far,mid'] = 329
+d['Conservative']['mid,close,none,far'] = 313
+d['Conservative']['none,close,mid,none'] = 282
+d['Conservative']['mid,close,far,far'] = 282
+d['Conservative']['none,mid,far,mid'] = 272
+d['Conservative']['none,close,none,close'] = 210
+d['Conservative']['mid,close,mid,none'] = 187
+d['Conservative']['far,far,none,mid'] = 171
+d['Conservative']['far,mid,far,mid'] = 166
+d['Conservative']['none,far,far,mid'] = 131
+d['Conservative']['none,mid,none,close'] = 113
+d['Conservative']['far,close,close,none'] = 92
+d['Conservative']['mid,mid,far,none'] = 90
+d['Conservative']['none,far,close,none'] = 89
+d['Conservative']['close,mid,none,far'] = 89
+d['Conservative']['far,mid,close,none'] = 88
+d['Conservative']['far,far,close,none'] = 75
+d['Conservative']['close,mid,far,far'] = 71
+d['Conservative']['far,mid,none,close'] = 65
+d['Conservative']['mid,close,none,mid'] = 63
+d['Conservative']['far,close,far,close'] = 52
+d['Conservative']['far,far,far,mid'] = 49
+d['Conservative']['none,mid,mid,far'] = 44
+d['Conservative']['far,close,mid,far'] = 42
+d['Conservative']['none,close,mid,far'] = 42
+d['Conservative']['none,far,none,close'] = 40
+d['Conservative']['none,mid,close,none'] = 37
+d['Conservative']['close,mid,mid,none'] = 35
+d['Conservative']['none,close,far,close'] = 34
+d['Conservative']['none,far,mid,far'] = 27
+d['Conservative']['far,mid,mid,far'] = 23
+d['Conservative']['none,mid,far,close'] = 19
+d['Conservative']['mid,close,far,mid'] = 17
+d['Conservative']['far,close,mid,mid'] = 15
+d['Conservative']['far,far,none,close'] = 15
+d['Conservative']['close,mid,none,mid'] = 12
+d['Conservative']['none,close,close,none'] = 12
+d['Conservative']['mid,mid,mid,none'] = 11
+d['Conservative']['mid,close,close,none'] = 10
+d['Conservative']['far,mid,far,close'] = 10
+d['Conservative']['none,far,far,close'] = 7
+d['Conservative']['none,mid,mid,mid'] = 7
+d['Conservative']['none,close,mid,mid'] = 6
+d['Conservative']['far,mid,mid,mid'] = 5
+d['Conservative']['mid,close,none,close'] = 5
+d['Conservative']['close,mid,none,close'] = 4
+d['Conservative']['far,far,far,close'] = 3
+d['Conservative']['mid,close,far,close'] = 2
+d['Conservative']['close,mid,far,mid'] = 2
+d['Conservative']['mid,mid,close,none'] = 2
+d['Conservative']['mid,mid,far,far'] = 2
+d['Conservative']['far,close,mid,close'] = 2
+d['Conservative']['none,mid,mid,close'] = 1
+d['Conservative']['far,mid,mid,close'] = 1
+
+d['P1']['far,close,far,none'] = 1137
+d['P1']['far,mid,far,none'] = 282
+d['P1']['far,close,mid,none'] = 242
+d['P1']['far,close,none,far'] = 176
+d['P1']['far,far,far,none'] = 129
+d['P1']['far,mid,mid,none'] = 120
+d['P1']['mid,close,far,none'] = 116
+d['P1']['none,close,far,none'] = 93
+d['P1']['far,close,far,far'] = 84
+d['P1']['none,close,none,far'] = 75
+d['P1']['none,far,far,none'] = 67
+d['P1']['none,mid,far,none'] = 67
+d['P1']['far,close,none,mid'] = 62
+d['P1']['far,far,mid,none'] = 61
+d['P1']['none,far,far,far'] = 50
+d['P1']['none,close,far,far'] = 49
+d['P1']['far,close,far,mid'] = 44
+d['P1']['far,mid,none,far'] = 41
+d['P1']['far,mid,far,far'] = 40
+d['P1']['mid,close,mid,none'] = 33
+d['P1']['none,mid,far,far'] = 33
+d['P1']['close,mid,far,none'] = 32
+d['P1']['none,mid,none,far'] = 31
+d['P1']['far,close,close,none'] = 30
+d['P1']['far,mid,close,none'] = 28
+d['P1']['far,mid,far,mid'] = 23
+d['P1']['none,far,mid,none'] = 23
+d['P1']['none,close,mid,none'] = 21
+d['P1']['far,mid,none,mid'] = 18
+d['P1']['none,far,none,far'] = 18
+d['P1']['none,far,none,mid'] = 18
+d['P1']['none,far,far,mid'] = 14
+d['P1']['mid,mid,far,none'] = 12
+d['P1']['far,far,far,far'] = 12
+d['P1']['far,close,none,close'] = 12
+d['P1']['none,close,none,mid'] = 11
+d['P1']['none,mid,none,mid'] = 9
+d['P1']['none,close,mid,far'] = 9
+d['P1']['far,far,none,far'] = 7
+d['P1']['far,close,far,close'] = 7
+d['P1']['far,far,close,none'] = 7
+d['P1']['none,mid,mid,none'] = 7
+d['P1']['none,close,far,mid'] = 6
+d['P1']['far,mid,mid,far'] = 5
+d['P1']['none,far,none,close'] = 4
+d['P1']['far,close,mid,far'] = 4
+d['P1']['none,far,far,close'] = 4
+d['P1']['none,far,close,none'] = 4
+d['P1']['mid,mid,mid,none'] = 3
+d['P1']['far,close,mid,mid'] = 3
+d['P1']['close,mid,mid,none'] = 3
+d['P1']['mid,close,far,far'] = 3
+d['P1']['none,mid,far,mid'] = 3
+d['P1']['none,close,mid,mid'] = 3
+d['P1']['far,close,close,far'] = 3
+d['P1']['close,far,far,none'] = 2
+d['P1']['none,far,mid,mid'] = 2
+d['P1']['far,mid,none,close'] = 2
+d['P1']['mid,mid,close,none'] = 2
+d['P1']['mid,close,close,none'] = 2
+d['P1']['none,mid,close,mid'] = 2
+d['P1']['far,mid,close,close'] = 2
+d['P1']['far,mid,far,close'] = 2
+d['P1']['none,mid,close,none'] = 2
+d['P1']['none,mid,mid,mid'] = 2
+d['P1']['mid,close,none,far'] = 1
+d['P1']['far,mid,mid,close'] = 1
+d['P1']['close,mid,close,none'] = 1
+d['P1']['far,far,mid,far'] = 1
+d['P1']['none,mid,mid,far'] = 1
+d['P1']['mid,close,far,mid'] = 1
+d['P1']['far,far,none,mid'] = 1
+d['P1']['far,far,none,close'] = 1
+d['P1']['far,mid,mid,mid'] = 1
+d['P1']['close,mid,far,far'] = 1
+d['P1']['none,close,far,close'] = 1
+d['P1']['none,mid,mid,close'] = 1
+d['P1']['none,far,mid,far'] = 1
+d['P1']['far,far,far,mid'] = 1
+d['P1']['far,far,far,close'] = 1
+d['P1']['mid,far,far,none'] = 1
+d['P1']['none,close,mid,close'] = 1
+
+d['P2']['far,close,far,none'] = 1130
+d['P2']['far,mid,far,none'] = 334
+d['P2']['far,close,none,far'] = 268
+d['P2']['far,close,far,far'] = 225
+d['P2']['far,close,mid,none'] = 201
+d['P2']['mid,close,far,none'] = 188
+d['P2']['none,close,far,none'] = 147
+d['P2']['none,close,none,far'] = 146
+d['P2']['none,close,far,far'] = 143
+d['P2']['far,mid,far,far'] = 120
+d['P2']['far,mid,none,far'] = 110
+d['P2']['far,mid,mid,none'] = 100
+d['P2']['none,mid,far,far'] = 79
+d['P2']['none,far,far,none'] = 78
+d['P2']['none,mid,far,none'] = 78
+d['P2']['far,far,far,none'] = 66
+d['P2']['far,close,none,mid'] = 65
+d['P2']['none,mid,none,far'] = 59
+d['P2']['far,far,none,far'] = 46
+d['P2']['close,mid,far,none'] = 44
+d['P2']['none,mid,mid,none'] = 41
+d['P2']['none,close,none,mid'] = 32
+d['P2']['far,close,far,mid'] = 26
+d['P2']['far,close,close,none'] = 24
+d['P2']['far,far,mid,none'] = 24
+d['P2']['none,far,none,far'] = 23
+d['P2']['mid,mid,far,none'] = 22
+d['P2']['none,close,mid,none'] = 20
+d['P2']['far,far,far,far'] = 19
+d['P2']['far,mid,none,mid'] = 19
+d['P2']['none,far,far,far'] = 19
+d['P2']['far,mid,close,none'] = 18
+d['P2']['mid,close,mid,none'] = 16
+d['P2']['far,close,mid,far'] = 16
+d['P2']['far,far,close,none'] = 13
+d['P2']['none,close,far,mid'] = 13
+d['P2']['far,mid,mid,far'] = 10
+d['P2']['none,mid,none,mid'] = 9
+d['P2']['none,close,mid,far'] = 9
+d['P2']['none,far,mid,none'] = 7
+d['P2']['mid,mid,mid,none'] = 7
+d['P2']['far,close,none,close'] = 7
+d['P2']['far,close,mid,mid'] = 7
+d['P2']['far,mid,far,mid'] = 5
+d['P2']['none,mid,far,mid'] = 5
+d['P2']['none,far,none,close'] = 4
+d['P2']['far,mid,none,close'] = 4
+d['P2']['none,close,none,close'] = 4
+d['P2']['none,close,far,close'] = 4
+d['P2']['close,mid,mid,none'] = 3
+d['P2']['none,mid,mid,far'] = 3
+d['P2']['mid,far,far,none'] = 3
+d['P2']['mid,close,far,far'] = 3
+d['P2']['far,close,far,close'] = 3
+d['P2']['mid,close,close,none'] = 3
+d['P2']['far,far,none,mid'] = 3
+d['P2']['none,far,mid,far'] = 3
+d['P2']['none,far,none,mid'] = 2
+d['P2']['mid,close,none,mid'] = 2
+d['P2']['far,mid,close,far'] = 2
+d['P2']['far,close,close,far'] = 2
+d['P2']['none,mid,far,close'] = 2
+d['P2']['close,far,far,none'] = 2
+d['P2']['none,close,close,none'] = 2
+d['P2']['none,mid,mid,mid'] = 1
+d['P2']['mid,close,none,close'] = 1
+d['P2']['close,mid,far,mid'] = 1
+d['P2']['far,far,far,mid'] = 1
+d['P2']['mid,close,mid,mid'] = 1
+d['P2']['none,close,mid,mid'] = 1
+d['P2']['close,mid,close,none'] = 1
+
 
 colors = [
     'green',
@@ -38,14 +381,31 @@ colors = [
     'dimgrey'
 ]
 
+
+data = OrderedDict()
+goals_tot_freq = defaultdict(float)
+for ag in d:
+    tot = sum(d[ag].values())
+    data[ag] = OrderedDict()
+    for goal, count in d[ag].items():
+        data[ag][goal] = float(count) / tot
+        goals_tot_freq[goal] += float(count) / tot
+
+sorted_goals_counts = sorted(goals_tot_freq.items(), key=lambda item: item[1], reverse=True)
+sorted_goals = [k for k, v in sorted_goals_counts]
+top_n_goals = sorted_goals[:len(colors)]
+
+
 data = pd.DataFrame(data)
-data['goals'] = pd.Series(goals)
-data = data.set_index('goals')
+data = data.fillna(0.0)
 
 plot_bump_chart(
-    data,
+    data.loc[top_n_goals],
     title="Ranking of goals",
-    colors=OrderedDict((g, c) for g, c in zip(goals, colors)),
+    colors=OrderedDict((g, c) for g, c in zip(top_n_goals, colors)),
     savename=['bumps.png', 'bumps.pdf'],
-    dpi=300
+    dpi=300,
+    log_y=True,
+    width=7,
+    height=4.5
 )
