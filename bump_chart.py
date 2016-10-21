@@ -16,7 +16,9 @@ def plot_bump_chart(
     height=8,
     savename=None,
     dpi=150,
-    log_y: bool=False
+    log_y: bool=False,
+    x_axis: str='',
+    y_axis: str='',
 ):
     """
     Creates a bump chart.
@@ -105,8 +107,8 @@ def plot_bump_chart(
     )
 
     plt.title(title)
-    plt.xlabel("Players")
-    plt.ylabel("# of uses")
+    plt.xlabel(x_axis)
+    plt.ylabel(y_axis)
     if log_y:
         ax.set_yscale('log')
     plt.xticks([f+RECTANGLES_WIDTH/2 for f in range(len(df.columns))], x_ticks)

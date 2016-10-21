@@ -407,5 +407,7 @@ plot_bump_chart(
     dpi=300,
     log_y=True,
     width=7,
-    height=4.5
+    height=4.5,
+    x_axis="Players",
+    y_axis="# of uses"
 )
